@@ -8,3 +8,4 @@ const filterWidget = new FilterWidget('.filter-widget');
 const contactList = new ContactList('.contact-list');
 
 contactList.renderUsers();
+contactList.filter('m');

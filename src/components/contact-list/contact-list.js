@@ -1,6 +1,12 @@
+import './contact-list.css';
+
 import data from './contact-list.json';
 
-console.log(data);
+import { containsPhone, containsText, filterBy } from '../../js/filter'; // console.log(data);
+
+const filterCb = (search, contact) => {
+    return containsPhone(contact.phone_number, search) || containsText(contact.first_name + ' ' + contact.last_name, search);
+};
 
 export class ContactList {
     constructor(element) {
@@ -27,13 +33,27 @@ export class ContactList {
         `;
     }
 
-    renderUsers() {
-        const fullHtml = this._users.map(user => {
+    // renderUsers() { // первый способ
+    //     const fullHtml = this._users.map(user => {
+    //         const itemHtml = this.renderItem(user);
+
+    //         return itemHtml;
+    //     }).join('');
+
+    //     this._element.innerHtml = fullHtml;
+    // }
+
+    renderUsers() { // второй способ - а вот он действительно заработал
+        this._users.forEach(user => {
             const itemHtml = this.renderItem(user);
 
-            return itemHtml;
-        }).join('');
+            this._element.insertAdjacentHTML('beforeend', itemHtml);
+        });
+    }
 
-        this._element.innerHtml = fullHtml;
+    filter(text) {
+        const filterCallback = filterCb.bind(null, text);
+
+        console.log(filterBy(this._users, filterCallback));
     }
 }
