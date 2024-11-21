@@ -1,28 +1,10 @@
-function createDiv() {
-    let divPole = document.createElement('div');
+// TODO: write your code here
 
-    divPole.classList = 'pole-game';
+import { FilterWidget } from '../components/filter-widget/filter-widget';
+import { ContactList } from '../components/contact-list/contact-list';
 
-    document.querySelector('body').append(divPole);
+const filterWidget = new FilterWidget('.filter-widget');
 
-    for (let i = 0; i < 16; i++) {
-        let div = document.createElement('div');
-        div.classList = 'pole';
-        document.querySelector('.pole-game').append(div);
-    }
-}
+const contactList = new ContactList('.contact-list');
 
-createDiv();
-
-
-let arr = document.querySelectorAll('.pole');
-function intervalGoblin() {
-    for (let i = 0; i < arr.length; i++) {
-        arr[i].classList = 'pole';
-    }
-
-    let random = Math.floor(Math.random() * (15 - 0 + 1)) + 0;
-    arr[random].classList = 'pole goblinPole';
-}
-
-setInterval(intervalGoblin, 1500);
+contactList.renderUsers();
