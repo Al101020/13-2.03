@@ -1,15 +1,11 @@
 .contact-list {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
     padding-left: 0;
-    margin-bottom: 0;
-    max-width: 500px;
 }
 
-.contact-list-item:first-child, .contact-list-item:last-child {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+.contact-list-item:first-child,
+.contact-list-item:last-child {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
 }
 
 .contact-list-item {
@@ -27,12 +23,13 @@
 }
 
 .contact-list-item-img {
+    max-width: 50px;
     border-radius: 50%;
     margin-right: 1rem;
-
-    width: 40px;
 }
 
-.contact-list-item-name, .contact-list-item-phone, .contact-list-item-action {
+.contact-list-item-name,
+.contact-list-item-phone,
+.contact-list-item-action {
     margin-right: 1rem;
 }
