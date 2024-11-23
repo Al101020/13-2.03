@@ -8,3 +8,5 @@ const filterWidget = new FilterWidget('.filter-widget', contactList.filter);
 
 contactList.renderUsers();
 contactList.filter('');
+
+// contactList.onlistItemClick();
