@@ -54,8 +54,12 @@ class ContactList {
       element = document.querySelector(element);
     }
     this.filter = this.filter.bind(this);
+    this.onlistItemClick = this.onlistItemClick.bind(this);
+    this.onHtmlClick = this.onHtmlClick.bind(this);
     this._element = element;
     this._users = contact_list_namespaceObject;
+    this._element.addEventListener('click', this.onlistItemClick);
+    document.documentElement.addEventListener('click', this.onHtmlClick, true);
   }
   renderItem(contact) {
     return `
@@ -66,7 +70,7 @@ class ContactList {
                 <span class="contact-list-item-phone">${contact.phone_number}</span>
                 <a href="tel:${contact.phone_number}" class="contact-list-item-action">Звонок</a>
             </div>
-            <div class="contact-list-item-details hidden">Подробная информация о клиенте</div>
+            <div class="contact-list-item-details hidden">Подробная информация о клиенте: ${contact.username}</div>
         </li>
         `;
   }
@@ -88,9 +92,28 @@ class ContactList {
   }
   filter(text) {
     const filterCallback = filterCb.bind(null, text);
-    console.log(filterBy(this._users, filterCallback)); // эта строка в видео уделена
+
+    // console.log(filterBy(this._users, filterCallback)); // эта строка в видео уделена
 
     this._renderItems(filterBy(this._users, filterCallback));
+  }
+  onlistItemClick(e) {
+    console.log(e.currentTarget);
+    console.log(e.target);
+    const target = e.target;
+    if (target.classList.contains('contact-list-item-action')) {
+      return;
+    }
+
+    // e.stopPropagation(); // отменяет всплытие, усть ещё stopImmediatePropagation() примерно такойже
+    e.stopImmediatePropagation(); // так же отменяет всплытие, и ещё что-то там.
+
+    const listItem = target.closest('.contact-list-item');
+    const details = listItem.querySelector('.contact-list-item-details');
+    details.classList.toggle('hidden');
+  }
+  onHtmlClick() {
+    console.log('html click');
   }
 }
 ;// CONCATENATED MODULE: ./src/js/app.js
@@ -102,6 +125,8 @@ const contactList = new ContactList('.contact-list');
 const filterWidget = new FilterWidget('.filter-widget', contactList.filter);
 contactList.renderUsers();
 contactList.filter('');
+
+// contactList.onlistItemClick();
 ;// CONCATENATED MODULE: ./src/index.js
 
 
